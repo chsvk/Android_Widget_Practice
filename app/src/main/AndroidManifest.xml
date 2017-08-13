@@ -12,6 +12,7 @@
             android:name=".provider.PlantContentProvider"
             android:authorities="com.example.android.mygarden"
             android:exported="true" />
+        <service android:name=".Widget.WidgetService"/>
 
         <activity
             android:name=".ui.MainActivity"

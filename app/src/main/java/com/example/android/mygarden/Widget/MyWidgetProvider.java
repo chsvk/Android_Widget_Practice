@@ -26,11 +26,21 @@ public class MyWidgetProvider extends AppWidgetProvider {
         views.setOnClickPendingIntent(R.id.myWidgetImage, pendingIntent);
         // Instruct the widget manager to update the widget
         appWidgetManager.updateAppWidget(appWidgetId, views);
+        Intent wateringIntent = new Intent(context, WidgetService.class);
+        wateringIntent.setAction(WidgetService.ACTION_WATER_PLANTS);
+        PendingIntent wateringPendingIntent = PendingIntent.getService(
+                context,
+                0,
+                wateringIntent,
+                PendingIntent.FLAG_UPDATE_CURRENT);
+        views.setOnClickPendingIntent(R.id.widget_water_button, wateringPendingIntent);
+        appWidgetManager.updateAppWidget(appWidgetId, views);
     }
 
     @Override
     public void onUpdate(Context context, AppWidgetManager appWidgetManager, int[] appWidgetIds) {
         // There may be multiple widgets active, so update all of them
+        // WILL RUN RIGHT AFTER THE WIDGET IS CREATED AND EVERY 30 MINS ( INTERVAL SPECIFIED )
         for (int appWidgetId : appWidgetIds) {
             updateAppWidget(context, appWidgetManager, appWidgetId);
         }
